@@ -1,8 +1,8 @@
-package Scripts
+package Scripts;
 
 public final class Rent{
     private User provider;
-    private User renter;
+    private User customer;
     private float rentTime;
     private String status; // Canceled, Pending, Ended
     private int rentId;
@@ -12,15 +12,18 @@ public final class Rent{
         rentId = id_gen++;
     }
 
-    Rent(User provider, User renter, float rentId, String status){
+    Rent(User provider, User customer, float rentTime, String status){
         this();
         this.provider = provider;
-        this.renter = renter;
-        this.rentId = rentId;
+        this.customer = customer;
+        this.rentTime = rentTime;
         this.status = status;
     }
 
 
+    public void ExtendTime(float amount){
+        rentTime += amount;
+    }
 
     // setters
 
@@ -28,8 +31,8 @@ public final class Rent{
         this.provider = provider;
     }
 
-    public void SetRenter(User renter){
-        this.renter = renter;
+    public void SetRenter(User customer){
+        this.customer = customer;
     }
 
     public void SetRentTime(float rentTime){
@@ -42,19 +45,19 @@ public final class Rent{
 
 
     // getters
-    public User SetProvider(){
+    public User GetProvider(){
         return provider;
     }
 
-    public User SetRenter(){
-        return renter;
+    public User GetRCustomer(){
+        return customer;
     }
 
-    public float SetRentTime(){
+    public float GetRentTime(){
         return rentTime;
     }
 
-    public String SetStatus(){
+    public String GetStatus(){
         return status;
     }
 

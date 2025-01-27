@@ -1,7 +1,7 @@
 package Scripts;
 
 public final class Customer extends User{
-    private String adress;
+    private String address;
 
     Customer(String name, String phoneNumber) {
         super(name, phoneNumber);
@@ -9,16 +9,16 @@ public final class Customer extends User{
 
     Customer(String name, String phoneNumber, String adress) {
         super(name, phoneNumber);
-        this.adress = adress;
+        this.address = adress;
     }
 
     // getters
     public String getAdress() {
-        return adress;
+        return address;
     }
 
     // setters
     public void setAdress(String adress) {
-        this.adress = adress;
+        this.address = adress;
     }
 }
