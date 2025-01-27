@@ -1,28 +1,40 @@
 package Scripts;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public final class Rent{
     private User provider;
     private User customer;
+    private Product product;
     private float rentTime;
     private String status; // Canceled, Pending, Ended
     private int rentId;
     private static int id_gen = 1;
+    LocalDateTime rentStart;
+
+    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     Rent(){
         rentId = id_gen++;
     }
 
-    Rent(User provider, User customer, float rentTime, String status){
+    Rent(User provider, User customer, float rentTime, String status, Product product){
         this();
-        this.provider = provider;
-        this.customer = customer;
-        this.rentTime = rentTime;
-        this.status = status;
+        SetProvider(provider);
+        SetCustomer(customer);
+        SetRentTime(rentTime);
+        SetStatus(status);
+        SetProduct(product);
+        rentStart = LocalDateTime.now();
     }
 
 
     public void ExtendTime(float amount){
         rentTime += amount;
+    }
+
+    public void PrintInformation(){
+        System.out.println(this.GetRentId() + ": " + GetProduct().GetName() + " (" + GetProduct().GetQuantity() + ") from "+ GetProvider().GetName() + " to " + GetCustomer().GetName() + " for " + this.GetRentTime() + " hours. Status - " + this.GetStatus() + "(until ");
     }
 
     // setters
@@ -31,7 +43,7 @@ public final class Rent{
         this.provider = provider;
     }
 
-    public void SetRenter(User customer){
+    public void SetCustomer(User customer){
         this.customer = customer;
     }
 
@@ -43,13 +55,17 @@ public final class Rent{
         this.status = status;
     }
 
+    public void SetProduct(Product product){
+        this.product = product;
+    }
+
 
     // getters
     public User GetProvider(){
         return provider;
     }
 
-    public User GetRCustomer(){
+    public User GetCustomer(){
         return customer;
     }
 
@@ -59,6 +75,14 @@ public final class Rent{
 
     public String GetStatus(){
         return status;
+    }
+
+    public Product GetProduct() {
+        return product;
+    }
+
+    public int GetRentId(){
+        return rentId;
     }
 
 }

@@ -13,26 +13,30 @@ public abstract class User {
     // constructors
     User(String name, String phoneNumber){
         this();
-        this.name = name;
-        this.phoneNumber = phoneNumber;
+        SetName(name);
+        SetPhoneNumber(phoneNumber);
     }
 
 
     // gettters
-    public String getName(){
+    public String GetName(){
         return name;
     }
 
-    public String getPhoneNumber() {
+    public String GetPhoneNumber() {
         return phoneNumber;
     }
 
+    public int GetId() {
+        return id;
+    }
+
     // setters
-    public void setName(String name){
+    public void SetName(String name){
         this.name = name;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void SetPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }
