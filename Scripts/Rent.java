@@ -1,18 +1,21 @@
 package Scripts;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
-public final class Rent{
+public class Rent{
     private User provider;
     private User customer;
     private Product product;
-    private float rentTime;
+    private double rentTime;
     private String status; // Canceled, Pending, Ended
     private int rentId;
     private static int id_gen = 1;
-    LocalDateTime rentStart;
+    private LocalDateTime rentStart;
+    private LocalDateTime currentTime;
+    private LocalDateTime rentEnd;
 
-    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    private TimeManager timeManager;
 
     Rent(){
         rentId = id_gen++;
@@ -26,15 +29,17 @@ public final class Rent{
         SetStatus(status);
         SetProduct(product);
         rentStart = LocalDateTime.now();
+        rentEnd = GetRentEnd();
     }
 
 
     public void ExtendTime(float amount){
         rentTime += amount;
+        rentEnd = GetRentEnd();
     }
 
     public void PrintInformation(){
-        System.out.println(this.GetRentId() + ": " + GetProduct().GetName() + " (" + GetProduct().GetQuantity() + ") from "+ GetProvider().GetName() + " to " + GetCustomer().GetName() + " for " + this.GetRentTime() + " hours. Status - " + this.GetStatus() + "(until ");
+        System.out.println(this.GetRentId() + ": " + GetProduct().GetName() + " (" + GetProduct().GetQuantity() + ") from "+ GetProvider().GetName() + " to " + GetCustomer().GetName() + " | until " + this.GetRentEnd().format(timeManager.GetDateFormat()) + "( " + timeManager.CalculateTimeLeft(this.GetRentStart(), this.GetRentEnd(), this.GetRentTime()) + " hours left) " + "Status - " + this.GetStatus());
     }
 
     // setters
@@ -69,7 +74,7 @@ public final class Rent{
         return customer;
     }
 
-    public float GetRentTime(){
+    public double GetRentTime(){
         return rentTime;
     }
 
@@ -85,4 +90,16 @@ public final class Rent{
         return rentId;
     }
 
+    public LocalDateTime GetRentStart() {
+        return rentStart;
+    }
+
+    public LocalDateTime GetCurrentTime() {
+        currentTime = LocalDateTime.now();
+        return currentTime;
+    }
+
+    public LocalDateTime GetRentEnd() {
+        return timeManager.CalculateRentTime(this.GetRentTime(), GetRentStart());
+    }
 }

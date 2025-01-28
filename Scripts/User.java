@@ -17,6 +17,10 @@ public abstract class User {
         SetPhoneNumber(phoneNumber);
     }
 
+    public void GetInformation(){
+        System.out.println(this.GetId() + ": " + this.GetName() + " - " + this.GetPhoneNumber());
+    }
+
 
     // gettters
     public String GetName(){

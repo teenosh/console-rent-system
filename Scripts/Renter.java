@@ -3,7 +3,7 @@ package Scripts;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Renter extends User{
+public class Renter extends User{
     private List<Product> products = new ArrayList<Product>();
 
     Renter() {
@@ -27,14 +27,15 @@ public final class Renter extends User{
         products.remove(product);
     }
 
-    public void GetInformation(){
-        System.out.println(this.GetId() + ": " + this.GetName() + " [" + this.GetPhoneNumber() + "]");
-    }
-
     public void PrintProducts(){
         for(Product product : products){
             product.PrintInformation();
         }
+    }
+
+    @Override
+    public void GetInformation(){
+        System.out.println(this.GetId() + ": " + this.GetName() + " [" + this.GetPhoneNumber() + "]");
     }
 
     // getters

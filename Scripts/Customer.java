@@ -3,7 +3,7 @@ package Scripts;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Customer extends User{
+public class Customer extends User{
     private String address;
     private List<Rent> rents = new ArrayList<Rent>();
 
@@ -38,6 +38,11 @@ public final class Customer extends User{
         for (Rent rent : rents) {
             rent.PrintInformation();
         }
+    }
+
+    @Override
+    public void GetInformation() {
+        System.out.println(this.GetId() + ": " + this.GetName() + " - " + this.GetPhoneNumber() + " - " + this.GetAddress());
     }
 
     // getters

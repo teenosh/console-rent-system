@@ -1,6 +1,6 @@
 package Scripts;
 
-public final class Product{
+public class Product{
     private String name;
     private int quantity;
     private int product_id;
