@@ -4,30 +4,29 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class Rent{
-    private User provider;
-    private User customer;
-    private Product product;
+    private int provider_id;
+    private int customer_id;
+    private int product_id;
     private double rentTime;
     private String status; // Canceled, Pending, Ended
     private int rentId;
-    private static int id_gen = 1;
     private LocalDateTime rentStart;
     private LocalDateTime currentTime;
     private LocalDateTime rentEnd;
 
-    private TimeManager timeManager;
+    private static TimeManager timeManager = new TimeManager();
 
-    Rent(){
-        rentId = id_gen++;
+    Rent(int id){
+        rentId = id;
     }
 
-    Rent(User provider, User customer, float rentTime, String status, Product product){
-        this();
-        SetProvider(provider);
-        SetCustomer(customer);
+    Rent(int id, int providerId, int customerId, double rentTime, String status, int productId){
+        this(id);
+        SetProviderId(providerId);
+        SetCustomerId(customerId);
         SetRentTime(rentTime);
         SetStatus(status);
-        SetProduct(product);
+        SetProductId(productId);
         rentStart = LocalDateTime.now();
         rentEnd = GetRentEnd();
     }
@@ -38,21 +37,21 @@ public class Rent{
         rentEnd = GetRentEnd();
     }
 
-    public void PrintInformation(){
-        System.out.println(this.GetRentId() + ": " + GetProduct().GetName() + " (" + GetProduct().GetQuantity() + ") from "+ GetProvider().GetName() + " to " + GetCustomer().GetName() + " | until " + this.GetRentEnd().format(timeManager.GetDateFormat()) + "( " + timeManager.CalculateTimeLeft(this.GetRentStart(), this.GetRentEnd(), this.GetRentTime()) + " hours left) " + "Status - " + this.GetStatus());
+    public String PrintInformation(){
+        return (this.GetRentId() + ": Product #" + GetProductId() + " from User #"+ GetProviderId() + " to User #" + GetCustomerId() + " | until " + this.GetRentEnd().format(timeManager.GetDateFormat()) + "( " + timeManager.CalculateTimeLeft(this.GetRentStart(), this.GetRentEnd(), this.GetRentTime()) + " hours left) " + "Status - " + this.GetStatus());
     }
 
     // setters
 
-    public void SetProvider(User provider){
-        this.provider = provider;
+    public void SetProviderId(int id){
+        this.provider_id = id;
     }
 
-    public void SetCustomer(User customer){
-        this.customer = customer;
+    public void SetCustomerId(int id){
+        this.customer_id = id;
     }
 
-    public void SetRentTime(float rentTime){
+    public void SetRentTime(double rentTime){
         this.rentTime = rentTime;
     }
 
@@ -60,18 +59,22 @@ public class Rent{
         this.status = status;
     }
 
-    public void SetProduct(Product product){
-        this.product = product;
+    public void SetProductId(int id){
+        this.product_id = id;
     }
 
 
     // getters
-    public User GetProvider(){
-        return provider;
+    public int GetId() {
+        return rentId;
     }
 
-    public User GetCustomer(){
-        return customer;
+    public int GetProviderId(){
+        return provider_id;
+    }
+
+    public int GetCustomerId(){
+        return customer_id;
     }
 
     public double GetRentTime(){
@@ -82,8 +85,8 @@ public class Rent{
         return status;
     }
 
-    public Product GetProduct() {
-        return product;
+    public int GetProductId() {
+        return product_id;
     }
 
     public int GetRentId(){
@@ -102,4 +105,6 @@ public class Rent{
     public LocalDateTime GetRentEnd() {
         return timeManager.CalculateRentTime(this.GetRentTime(), GetRentStart());
     }
+
+
 }

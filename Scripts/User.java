@@ -4,21 +4,20 @@ public abstract class User {
     private String name;
     private String phoneNumber;
     private int id;
-    private static int id_gen = 1;
 
-    User(){
-        this.id = id_gen;
+    User(int id){
+        this.id = id;
     }
 
     // constructors
-    User(String name, String phoneNumber){
-        this();
+    User(int id, String name, String phoneNumber){
+        this(id);
         SetName(name);
         SetPhoneNumber(phoneNumber);
     }
 
-    public void GetInformation(){
-        System.out.println(this.GetId() + ": " + this.GetName() + " - " + this.GetPhoneNumber());
+    public String GetInformation(){
+        return (this.GetId() + ": " + this.GetName() + " - " + this.GetPhoneNumber());
     }
 
 

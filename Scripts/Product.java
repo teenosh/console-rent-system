@@ -4,14 +4,13 @@ public class Product{
     private String name;
     private int quantity;
     private int product_id;
-    private static int id_gen = 1;
 
-    Product(){
-        product_id = id_gen++;
+    Product(int id){
+        product_id = id;
     } 
 
-    Product(String name, int quantity){
-        this();
+    Product(int id, String name, int quantity){
+        this(id);
         SetQuantity(quantity);
         SetName(name);
     }
@@ -31,8 +30,8 @@ public class Product{
         quantity -= amount;
     }
 
-    public void PrintInformation(){
-        System.out.println(this.GetProductId() + ": " + this.GetName() + " (" + this.GetQuantity() + ")");
+    public String PrintInformation(){
+        return (this.GetProductId() + ": " + this.GetName() + " (" + this.GetQuantity() + ")");
     }
 
     // setters
@@ -47,6 +46,10 @@ public class Product{
 
 
     // getters
+
+    public int GetId(){
+        return product_id;
+    }
 
     public String GetName(){
         return name;

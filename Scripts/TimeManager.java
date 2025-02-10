@@ -1,4 +1,5 @@
 package Scripts;
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.Duration;
@@ -11,9 +12,9 @@ public final class TimeManager {
     }
 
     public double CalculateTimeLeft(LocalDateTime start, LocalDateTime end, double duration) {
-        long secondsLeft = Duration.between(start, end).getSeconds();
-        double hoursLeft = secondsLeft / 3600.0;
-        double remainingHours = duration - hoursLeft;
+        long secondsPassed = Duration.between(start, LocalDateTime.now()).getSeconds();
+        double hoursPassed = secondsPassed / 3600.0;
+        double remainingHours = duration - hoursPassed;
 
         return remainingHours;
     }

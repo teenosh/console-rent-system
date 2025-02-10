@@ -4,25 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Customer extends User{
-    private String address;
     private List<Rent> rents = new ArrayList<Rent>();
 
-    Customer(){
-        super();
+    Customer(int id){
+        super(id);
     }
 
-    Customer(String name, String phoneNumber) {
-        super(name, phoneNumber);
+    Customer(int id, String name, String phoneNumber) {
+        super(id, name, phoneNumber);
     }
 
-    Customer(String name, String phoneNumber, String address) {
-        super(name, phoneNumber);
-        SetAddress(address);
-    }
-
-    Customer(String name, String phoneNumber, String address, List<Rent> rents) {
-        super(name, phoneNumber);
-        SetAddress(address);
+    Customer(int id, String name, String phoneNumber, List<Rent> rents) {
+        super(id, name, phoneNumber);
         SetRents(rents);
     }
 
@@ -34,15 +27,15 @@ public class Customer extends User{
         rents.remove(rent);
     }
 
-    public void PrintRents() {
+    public void ListRents() {
         for (Rent rent : rents) {
             rent.PrintInformation();
         }
     }
 
     @Override
-    public void GetInformation() {
-        System.out.println(this.GetId() + ": " + this.GetName() + " - " + this.GetPhoneNumber() + " - " + this.GetAddress());
+    public String GetInformation() {
+        return (this.GetId() + ": " + this.GetName() + " -> " + this.GetPhoneNumber());
     }
 
     // getters
@@ -50,15 +43,7 @@ public class Customer extends User{
         return rents;
     }
 
-    public String GetAddress() {
-        return address;
-    }
-
     // setters
-    public void SetAddress(String address) {
-        this.address = address;
-    }
-
     public void SetRents(List<Rent> rents) {
         this.rents = rents;
     }

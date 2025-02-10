@@ -6,16 +6,16 @@ import java.util.List;
 public class Renter extends User{
     private List<Product> products = new ArrayList<Product>();
 
-    Renter() {
-        super();
+    Renter(int id) {
+        super(id);
     }
 
-    Renter(String name, String phoneNumber){
-        super(name, phoneNumber);
+    Renter(int id, String name, String phoneNumber){
+        super(id, name, phoneNumber);
     }
 
-    Renter(String name, String phoneNumber, List<Product> products){
-        super(name, phoneNumber);
+    Renter(int id, String name, String phoneNumber, List<Product> products){
+        super(id, name, phoneNumber);
         SetProducts(products);
     }
 
@@ -34,8 +34,14 @@ public class Renter extends User{
     }
 
     @Override
-    public void GetInformation(){
-        System.out.println(this.GetId() + ": " + this.GetName() + " [" + this.GetPhoneNumber() + "]");
+    public String GetInformation(){
+        return (this.GetId() + ": " + this.GetName() + " -> " + this.GetPhoneNumber());
+    }
+
+    public void ListProducts(){
+        for(Product product : products){
+            product.PrintInformation();
+        }
     }
 
     // getters
